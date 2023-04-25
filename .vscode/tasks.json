@@ -1,0 +1,87 @@
+{
+	"version": "2.0.0",
+	"presentation": {
+		"reveal": "always",
+		"panel": "new"
+	},
+	"tasks": [
+		{
+			"label": "update vscode sdk",
+			"type": "shell",
+			"command": "yarn dlx @yarnpkg/sdks vscode",
+			"windows": {
+				"command": "yarn dlx @yarnpkg/sdks vscode"
+			},
+			"presentation": {
+				"reveal": "always",
+				"revealProblems": "onProblem",
+				"close": true
+			}
+		},
+		{
+			"label": "install",
+			"type": "shell",
+			"command": "yarn install",
+			"windows": {
+				"command": "yarn install"
+			},
+			"presentation": {
+				"reveal": "always",
+				"revealProblems": "onProblem",
+				"close": true
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
+		},
+		{
+			"label": "upgrade",
+			"type": "shell",
+			"command": "yarn upgrade-interactive",
+			"windows": {
+				"command": "yarn upgrade-interactive"
+			},
+			"presentation": {
+				"reveal": "always"
+			}
+		},
+		{
+			"label": "start",
+			"type": "shell",
+			"command": "yarn start",
+			"windows": {
+				"command": "yarn start"
+			},
+			"presentation": {
+				"reveal": "always"
+			}
+		},
+		{
+			"label": "build & start",
+			"dependsOn": [
+				"build",
+				"start express",
+			]
+		},
+		{
+			"label": "build",
+			"type": "shell",
+			"command": "yarn build",
+			"windows": {
+				"command": "yarn build"
+			},
+			"presentation": {
+				"reveal": "always"
+			}
+		},
+			{
+				"type": "npm",
+				"label": "start express",
+				"script": "start (prod)",
+				"path": "${workspaceFolder}",
+				"options": {
+					"cwd": "${workspaceFolder}"
+				}
+			},
+	]
+}

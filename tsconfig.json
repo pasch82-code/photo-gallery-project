@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        //"types": ["node", "jest", "@testing-library/jest-dom"],
+        "baseUrl": "src",
+        "outDir": "dist",
+        "module": "es2020",
+        "noImplicitAny": true,
+        "target": "es5",
+        "jsx": "react",
+        "allowJs": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "lib": [
+            "dom",
+            "es2020" //es6?
+        ],
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        //"skipLibCheck": true,
+        //"lib": ["es6", "dom"],
+        //"noImplicitThis": true,
+        //"strictNullChecks": true,
+        //"strict": true
+    },
+    "exclude": [
+        ".vscode",
+        "node_modules",
+        "dist"
+    ],
+    "include": [
+        "src/**/*"
+    ]
+}

@@ -1,0 +1,27 @@
+{
+  "search.exclude": {
+    "**/.yarn": true,
+    "yarn.lock": true,
+    "**/.pnp.*": true,
+    "node_modules": true,
+    "dist": true
+  },
+  "files.exclude": {
+    "**/.yarn": true,
+    "yarn.lock": true,
+    "**/.pnp.*": true,
+    "node_modules": true,
+    "dist": true
+  },
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "npm.scriptExplorerExclude": [
+    "install"
+  ],
+  "npm.packageManager": "yarn",
+  "taskExplorer.showLastTasks": false,
+  "typescript.tsc.autoDetect": "off",
+  "taskExplorer.enabledTasks": {
+    "npm": false
+  }
+}

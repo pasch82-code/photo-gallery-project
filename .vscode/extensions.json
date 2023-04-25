@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "arcanis.vscode-zipfs",
+    "spmeesseman.vscode-taskexplorer",
+    "styled-components.vscode-styled-components"
+  ]
+}
