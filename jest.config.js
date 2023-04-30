@@ -16,6 +16,6 @@ module.exports = {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy"
   },  
   transformIgnorePatterns: ['node_modules/(?!use-breakpoint/)'],
-  //coverageReporters: ["json-summary"],
+  coverageReporters: ["json-summary"],
   testEnvironmentOptions: { "resources": "usable" }
 };
