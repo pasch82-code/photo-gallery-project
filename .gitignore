@@ -1,6 +1,7 @@
 #yarn
 .pnp.*
 .yarn/*
+
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
@@ -9,3 +10,4 @@
 
 dist
 coverage
+node_modules/*
