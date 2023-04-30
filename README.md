@@ -1,6 +1,6 @@
 | Statements | Branches | Functions | Lines |
 | -----------|----------|-----------|-------|
-| ![Statements](https://img.shields.io/badge/Coverage-87.02%25-yellow.svg "Make me better!") | ![Branches](https://img.shields.io/badge/Coverage-66.66%25-red.svg "Make me better!") | ![Functions](https://img.shields.io/badge/Coverage-74.43%25-red.svg "Make me better!") | ![Lines](https://img.shields.io/badge/Coverage-87.24%25-yellow.svg "Make me better!") |
+| ![Statements](#statements# "Make me better!") | ![Branches](#branches# "Make me better!") | ![Functions](#functions# "Make me better!") | ![Lines](#lines# "Make me better!") |
 
 ## photo gallery project
 
