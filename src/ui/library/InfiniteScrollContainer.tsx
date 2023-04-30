@@ -16,7 +16,6 @@ const StyledInfiniteScrollContainer = styled.div`
 interface InfiniteScrollContainerProps {
   isLoading: boolean;
   hasRecords: boolean;
-  count: number;
   onScrollReached: () => void;
 }
 

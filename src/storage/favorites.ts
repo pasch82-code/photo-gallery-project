@@ -1,20 +1,18 @@
-import isEmpty from "lodash/isEmpty"
-import isNil from "lodash/isNil"
+import isEmpty from "lodash/isEmpty";
+import isNil from "lodash/isNil";
+const favoritesKey = `photo-gallery-favorites`;
 
-const favoritesKey = `photo-gallery-favorites`
+/* The `FavoriteStorage` class provides methods for retrieving, setting, and clearing favorites stored
+in local storage. */
+class FavoriteStorage {
 
-/**
- * This code defines a TypeScript namespace called `FavoriteStorage` that contains three functions for
-managing favorite items in local storage.
- */
-export namespace FavoriteStorage {
-
-    /**
-     * This function retrieves favorite items from local storage and returns them as an array.
-     * @returns The function `getFavorites` returns an array of favorite items that are stored in the
-     * local storage. If there are no favorite items stored, it returns `null`.
-     */
-    export const getFavorites = () => {
+   /* `getFavorites` is a method that retrieves the favorites from local storage. It first retrieves
+   the favorites from local storage using the `localStorage.getItem` method and stores it in the
+   `favorites` variable. It then checks if the `favorites` variable is null or empty using the
+   `isNil` and `isEmpty` methods from the Lodash library. If it is null or empty, it returns null.
+   Otherwise, it splits the `favorites` string by comma using the `split` method and returns an
+   array of favorites. */
+    getFavorites = () => {
         const favorites = localStorage.getItem(favoritesKey)
         if (isNil(favorites) || isEmpty(favorites))
             return null;
@@ -22,29 +20,23 @@ export namespace FavoriteStorage {
             return favorites.split(",")
     }
 
-    /**
-     * This function sets the user's favorite items in local storage.
-     * @param {string[]} favorites - favorites is an array of strings that represents the user's favorite posts ids.
-     * This function sets the favorites in the browser's local storage by converting the array to a
-     * comma-separated string using the `toString()` method. If the `favorites` parameter is null or
-     * undefined, an empty string is stored in
-     */
-    /**
-     * The function sets an array of strings as favorites in local storage.
-     * @param {string[]} favorites - `favorites` is an array of strings that contains the list of favorite
-     * items that the user has selected. This function takes this array and stores it in the browser's
-     * local storage using the `localStorage.setItem()` method. If the `favorites` array is null or
-     * undefined, it sets an empty string as
-     */
-    export const setFavorites = (favorites: string[]) => {
+  /* `setFavorites` is a method that takes an array of strings called `favorites` as a parameter. It
+  then converts the `favorites` array to a string using the `toString` method and sets it as the
+  value of the `favoritesKey` in the local storage using the `localStorage.setItem` method. If the
+  `favorites` parameter is null or undefined, it sets an empty string as the value of the
+  `favoritesKey`. The `??` operator is used to provide a default value of an empty string if the
+  `toString` method returns null or undefined. */
+    setFavorites = (favorites: string[]) => {
         localStorage.setItem(favoritesKey, favorites?.toString() ?? "");
     }
 
-    /**
-     * The function clears the favorites from local storage.
-     */
-    export const clearFavorites = () => {
+   /* `clearFavorites` is a method that removes the value associated with the `favoritesKey` from the
+   local storage using the `localStorage.removeItem` method. This effectively clears the favorites
+   stored in the local storage. */
+    clearFavorites = () => {
         localStorage.removeItem(favoritesKey);
     }
 
 }
+
+export default new FavoriteStorage();

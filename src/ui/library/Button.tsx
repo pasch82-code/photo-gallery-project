@@ -38,7 +38,7 @@ interface ButtonProps {
  * optional disabled state and onClick event handler.
  */
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({ children, disabled, onClick }) => {
-  return (<StyledButton disabled={disabled} onClick={onClick}>
+  return (<StyledButton disabled={disabled} onClick={onClick} role="button">
     {children}
   </StyledButton>)
 };

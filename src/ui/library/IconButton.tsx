@@ -1,16 +1,19 @@
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 
-const size = "32px";
+const size = 32;
 
-const StyledIconButton = styled.div`
+const StyledIconButton = styled.button`
+  background: transparent;
+  border: none;
+  color: white;
   display: flex;
   cursor: pointer;
   position: relative;
   align-items: center;
   justify-content: center;
-  width: ${size};               
-  height: ${size};    
+  width: ${size}px;               
+  height: ${size}px;    
 
   > svg {
     width: 18px;               
@@ -21,8 +24,8 @@ const StyledIconButton = styled.div`
     content: "";
     position: absolute;
     opacity: 0.2;           
-    width: ${size};               
-    height:${size};              
+    width: ${size}px;               
+    height:${size}px;              
     transform: scale(0);
     border-radius: 50%;
     background-image: linear-gradient(to top right, white, gray);
@@ -35,7 +38,8 @@ const StyledIconButton = styled.div`
 `;
 
 interface IconButtonProps {
-    onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
+    name: string
 }
 
 /** This code defines a functional component called `IconButton` that takes in two props: `children` and
@@ -44,8 +48,8 @@ interface IconButtonProps {
 `StyledIconButton` element is clicked. The `StyledIconButton` element is a styled `div` that
 displays an icon and has a hover effect. The `IconButton` component returns this `StyledIconButton`
 element with the `onClick` prop passed to it. */
-const IconButton: React.FC<PropsWithChildren<IconButtonProps>> = ({ children, onClick }) => {
-    return (<StyledIconButton onClick={onClick}>
+const IconButton: React.FC<PropsWithChildren<IconButtonProps>> = ({ children, name, onClick }) => {
+    return (<StyledIconButton onClick={onClick} role="button" aria-label={name}>
         {children}
     </StyledIconButton>)
 };

@@ -74,14 +74,43 @@
 				"reveal": "always"
 			}
 		},
-			{
-				"type": "npm",
-				"label": "start express",
-				"script": "start (prod)",
-				"path": "${workspaceFolder}",
-				"options": {
-					"cwd": "${workspaceFolder}"
-				}
+		{
+			"type": "npm",
+			"label": "start express",
+			"script": "start:prod",
+			"path": "${workspaceFolder}",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			}
+		},
+		{
+			"label": "test",
+			"dependsOn": [
+				"jest",
+				"jest-preview",
+			]
+		},
+		{
+			"label": "jest",
+			"type": "shell",
+			"command": "yarn test",
+			"windows": {
+				"command": "yarn test"
 			},
+			"presentation": {
+				"reveal": "always"
+			}
+		},
+		{
+			"label": "jest-preview",
+			"type": "shell",
+			"command": "yarn jest-preview",
+			"windows": {
+				"command": "yarn jest-preview"
+			},
+			"presentation": {
+				"reveal": "always"
+			}
+		}
 	]
 }

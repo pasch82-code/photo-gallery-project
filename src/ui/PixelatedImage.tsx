@@ -12,10 +12,9 @@ interface PixelatedImageProps {
   height: number
 }
 
-/**
- * This is a React functional component that renders a pixelated image with a changing pixel size.
- * @param - `src` (the source URL of the image to be pixelated) and `height` (the height of the SVG container).
- */
+/** This is a functional component in TypeScript React that renders a pixelated image with a changing
+pixel size. It takes in two props: `src` (the source URL of the image to be pixelated) and `height`
+(the height of the SVG container). */
 const PixelatedImage: React.FC<PixelatedImageProps> = ({ src, height }) => {
 
   const pixelMaxWidth = 12;
@@ -50,7 +49,7 @@ const PixelatedImage: React.FC<PixelatedImageProps> = ({ src, height }) => {
     }
   }, []);
 
-  return (<StyledPixelatedSvg style={{ height: height + "px" }} >
+  return (<StyledPixelatedSvg style={{ height: height ? height + "px" : null }} aria-label="svg-thumb" >
     <filter id="pixelate" x="0" y="0" >
       <feFlood x={4} y={4} height={1} width={1} />
       <feComposite width={size * 2} height={size * 2} />

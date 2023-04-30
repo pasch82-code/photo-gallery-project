@@ -8,3 +8,4 @@
 !.yarn/versions
 
 dist
+coverage

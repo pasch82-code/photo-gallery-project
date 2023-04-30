@@ -1,15 +1,16 @@
 import { useSelector } from "react-redux";
-import { PostSelectors } from "../../selectors";
 import { PropsWithChildren, useCallback } from "react";
 import styled from "styled-components";
 import { device } from "../../theme";
-import { AppState, useAppDispatch } from "../../state";
 import React from "react";
 import IconButton from "../library/IconButton";
-import { openSidebar, toggleFiltersOpened } from "../../slice";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscSettings } from "react-icons/vsc";
 import Filters from "../Filters";
+import { FiltersSelectors } from "../../state/filters/filtersSelectors";
+import { AppState, useAppDispatch } from "../../state/state";
+import { toggleFiltersOpened } from "../../state/filters/filtersSlice";
+import { openSidebar } from "../../state/ui/uiSlice";
 
 const headerHeight = 60;
 const filterHeight = 160;
@@ -80,8 +81,8 @@ const StyledHeader = styled.header<{ filtersOpened?: boolean }>`
  * based on the state of the filtersOpened variable.
  */
 const Header: React.FC<PropsWithChildren> = ({ children }) => {
-    const filtersOpened = useSelector((state: AppState) => PostSelectors.getFiltersOpened(state));
-    const isFiltered = useSelector((state: AppState) => PostSelectors.isFiltered(state));
+    const filtersOpened = useSelector((state: AppState) => FiltersSelectors.getFiltersOpened(state));
+    const isFiltered = useSelector((state: AppState) => FiltersSelectors.isFiltered(state));
 
     const dispatch = useAppDispatch();
   
@@ -96,13 +97,13 @@ const Header: React.FC<PropsWithChildren> = ({ children }) => {
     return (<>
         <StyledHeader filtersOpened={filtersOpened}>
             <div className="header-row" >
-                <IconButton onClick={handleHamburgerButtonClick}>
+                <IconButton name="hamburger" onClick={handleHamburgerButtonClick}>
                     <GiHamburgerMenu />
                 </IconButton>
                 <div className="header-content">
                     {children}
                 </div>
-                <IconButton onClick={handleFilterButtonClick}>
+                <IconButton name="filter" onClick={handleFilterButtonClick}>
                     <VscSettings color={isFiltered ? "white" : "#a5a4a4"} />
                 </IconButton>
             </div>

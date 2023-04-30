@@ -54,7 +54,7 @@ function prodConfig() {
                 template: "./html-template.html"
             }),
             new BundleAnalyzerPlugin({
-                analyzerPort: "auto",
+                analyzerPort: 3002,
                 generateStatsFile: true,
                 statsFilename: "stats",
                 logLevel: "error"

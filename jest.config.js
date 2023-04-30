@@ -14,5 +14,8 @@ module.exports = {
   //setupFiles: ['<rootDir>/src/setupFiles.js']
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy"
-  }
+  },  
+  transformIgnorePatterns: ['node_modules/(?!use-breakpoint/)'],
+  //coverageReporters: ["json-summary"],
+  testEnvironmentOptions: { "resources": "usable" }
 };

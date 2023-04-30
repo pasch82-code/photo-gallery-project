@@ -3,7 +3,7 @@ import styled from "styled-components";
 import debounce from "lodash/debounce";
 import isNil from "lodash/isNil";
 
-const DEBOUNCE_MILLISECONDS = 1500;
+export const DEBOUNCE_MILLISECONDS = 1500;
 
 interface InputContainerProps {
    hasIcon: boolean,
@@ -49,6 +49,7 @@ const StyledInputContainer = styled.div<InputContainerProps>`
 
 interface InputTextProps {
    placeholder: string,
+   name: string,
    icon?: React.ReactNode,
    value: any,
    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -58,7 +59,7 @@ interface InputTextProps {
   This is a functional component that renders an input field with a placeholder,
   icon, and onChange event that is debounced.
  */
-const InputText: React.FC<InputTextProps> = ({ placeholder, icon, value, onChange }) => {
+const InputText: React.FC<InputTextProps> = ({ placeholder, name, icon, value, onChange }) => {
 
    const [localValue, setLocalValue] = useState("");
 
@@ -79,6 +80,8 @@ const InputText: React.FC<InputTextProps> = ({ placeholder, icon, value, onChang
    return (<StyledInputContainer hasIcon={icon != null} >
           {icon}
          <input
+            aria-label={name}
+            role="textbox"
             placeholder={placeholder}
             type="text"
             onChange={handleChange}

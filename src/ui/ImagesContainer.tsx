@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from "react"
 import styled from "styled-components";
-import GalleryThumbnail, { GalleryThumbnailProps } from "./GalleryThumbnail";
 import InfiniteScrollContainer from "./library/InfiniteScrollContainer";
 import Spinner from "./library/Spinner";
+import Thumbnail, { ThumbnailProps } from "./Thumbnail";
 
 const StyledImageContainer = styled.div<{ hasRecords: boolean }>`
   display: flex;
@@ -25,7 +25,7 @@ interface ImagesContainerProps {
   hasRecords: boolean;
   isLoading: boolean;
   handleLoadMore: () => void;
-  images: GalleryThumbnailProps[]
+  images: ThumbnailProps[]
 }
 
 /** The `ImagesContainer` renders a `InfiniteScrollContainer` component with an infinite scroll feature.
@@ -34,12 +34,11 @@ renders a `GalleryThumbnail` component for each image. If `isLoading` is true, a
 is also rendered. */
 const ImagesContainer: React.FC<PropsWithChildren<ImagesContainerProps>> = ({ isLoading, hasRecords, handleLoadMore, images }) => {
    return (<><InfiniteScrollContainer
-        count={images?.length}
         onScrollReached={handleLoadMore}
         isLoading={isLoading}
         hasRecords={hasRecords} >
         <StyledImageContainer hasRecords={hasRecords} >
-          {images?.map(image => <GalleryThumbnail key={image.postId} {...image} />)}
+          {images?.map(image => <Thumbnail key={image.postId} {...image} />)}
         </StyledImageContainer>
       </InfiniteScrollContainer>
       {isLoading && <Spinner />}

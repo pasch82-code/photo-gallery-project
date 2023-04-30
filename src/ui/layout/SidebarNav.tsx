@@ -2,10 +2,10 @@ import React, { useCallback } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaHeart, FaHome } from "react-icons/fa";
-import { AppState, useAppDispatch } from "../../state";
-import { PostSelectors } from "../../selectors";
 import { useSelector } from "react-redux";
-import { closeSidebar } from "../../slice";
+import { UiSelectors } from "../../state/ui/uiSelectors";
+import { AppState, useAppDispatch } from "../../state/state";
+import { closeSidebar } from "../../state/ui/uiSlice";
 
 const sidebarWidth = 220;
 
@@ -77,7 +77,7 @@ const StyledNav = styled.nav<{ opened: boolean }>`
  * hook to dispatch a `closeSidebar` action when the sidebar is closed. The component also renders
  */
 const SidebarNav: React.FC = ({ }) => {
-  const opened = useSelector((state: AppState) => PostSelectors.getSidebarNavOpened(state));
+  const opened = useSelector((state: AppState) => UiSelectors.getSidebarNavOpened(state));
 
   const dispatch = useAppDispatch();
 
@@ -85,7 +85,7 @@ const SidebarNav: React.FC = ({ }) => {
     dispatch(closeSidebar())
   }, []);
 
-return (<>
+  return (<>
     <StyledNav opened={opened} >
       <ul>
         <li><Link to={`/`} onClick={handleCloseSidebarNav}><FaHome />Home</Link></li>

@@ -37,7 +37,7 @@ a container with 12 div elements that are styled to create a spinning animation.
 const Spinner: React.FC = () => {
 
     return (<>
-        <StyledSpinnerContainer >
+        <StyledSpinnerContainer aria-label="spinner" >
             <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </StyledSpinnerContainer>
     </>
