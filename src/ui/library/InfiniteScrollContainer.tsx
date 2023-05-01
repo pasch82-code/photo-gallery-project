@@ -4,6 +4,7 @@ import styled from "styled-components";
 import debounce from 'lodash/debounce';
 import useBreakpoint from 'use-breakpoint';
 import { BREAKPOINTS, ROW_HEIGHTS } from '../../theme';
+import useResizeObserver from "use-resize-observer";
 
 const StyledInfiniteScrollContainer = styled.div`
   display: flex;
@@ -19,23 +20,20 @@ interface InfiniteScrollContainerProps {
   onScrollReached: () => void;
 }
 
-/** This is a functional component that renders a infinite scroll component on the top of its child.
- *  The `CustomScroll` component has an `onScroll` event listener that triggers the `handleOnScroll` 
- *  function when the user scrolls. The `handleOnScroll` function checks if the user has scrolled
- *  to the bottom of the container and if so, it calls the
- * `invokeLoadMore` function. The `invokeLoadMore` function debounces the `onScrollReached` function
- * call to prevent multiple calls. The component also has an `useEffect` hook that checks if
- * the content height is less than the container height and if so, it automatically calls the`invokeLoadMore` function.
- *  */
+/** This is a functional component that renders an infinite scroll component on top of its child. It has
+logic to handle infinite scrolling by detecting when the user has scrolled to the bottom of the
+container and invoking a `onScrollReached` function. 
+The component also has an `useEffect` hook that checks if the content height
+is less than the container height and there are more records to fetch. If so, it automatically calls
+the `onScrollReached` function. 
+The `onScrollReached` function is debounced to prevent multiple calls.*/
 const InfiniteScrollContainer: React.FC<PropsWithChildren<InfiniteScrollContainerProps>> = ({ isFetching, hasRecords, children, onScrollReached }) => {
 
   const { breakpoint } = useBreakpoint(BREAKPOINTS);
   const rowHeight = ROW_HEIGHTS[breakpoint];
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scrollbarRef = useRef<any>(null);
-
-  //TODOPS bug: detect resize 
-  //const { ref, height: parentHeight } = useResizeObserver<HTMLDivElement>();
+  const containerRef = useRef(null);
+  const scrollbarRef = useRef(null);
+  const { ref: contentResizeObserverRef, height: contentObservedHeight } = useResizeObserver<HTMLDivElement>();
 
   const invokeLoadMore = useCallback(debounce(() => {
     onScrollReached();
@@ -49,24 +47,29 @@ const InfiniteScrollContainer: React.FC<PropsWithChildren<InfiniteScrollContaine
     const scrollPosition = Math.round(scrollNode.scrollHeight - offset);
 
     if (scrollPosition <= scrollContainerBottomPosition) {
-      if (isFetching == false && hasRecords)
+      if (isFetching == false && hasRecords) {
+        //console.log("invokeLoadMore! scrolling.");
         invokeLoadMore();
+      }
     }
   }, [isFetching, hasRecords]);
 
   useEffect(() => {
-    const parentHeight = containerRef.current.offsetHeight;
-    const contentHeight = (scrollbarRef as any).current.contentHeight;
+    const containerHeight = containerRef.current.offsetHeight;
+    const scrollbarHeight = (scrollbarRef as any).current.contentHeight;
+    const contentHeightIsLessTheContainer = contentObservedHeight < (containerHeight + rowHeight) && scrollbarHeight < (containerHeight + rowHeight);
 
-    if (isFetching == false && hasRecords && contentHeight < (parentHeight + rowHeight)) {
-      //console.log("automatically trying to load more! - even if not scrolling.");
+    if (isFetching == false && hasRecords == true && contentHeightIsLessTheContainer) {
+      //console.log("invokeLoadMore! automatically.");
       invokeLoadMore();
     }
-  }, [isFetching, hasRecords]);
+  }, [isFetching, contentObservedHeight, hasRecords]);
 
   return (<StyledInfiniteScrollContainer ref={containerRef}>
     <CustomScroll flex="1" onScroll={handleOnScroll} ref={scrollbarRef} >
+      <div style={{ flexGrow: 1 }} ref={contentResizeObserverRef}>
         {children}
+      </div>
     </CustomScroll>
   </StyledInfiniteScrollContainer>);
 };

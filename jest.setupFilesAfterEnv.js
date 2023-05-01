@@ -6,3 +6,9 @@ import '@testing-library/jest-dom/extend-expect';
 import 'react-intersection-observer/test-utils'
 import './src/jest-matchMedia'
 jest.mock('react-intersection-observer');
+
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn(),
+}))

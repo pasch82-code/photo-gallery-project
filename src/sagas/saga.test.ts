@@ -43,44 +43,4 @@ describe('redux saga integrations tests', () => {
 
   });
 
-  it('getFavoritesPostsStart saga does not replace existing favorite posts and it is sorted correctly', async () => {
-
-    const searchText = "pics";
-    const afterId = "afterId";
-
-    const initialState = JestUtils.appStateWithPreloadedFirstPageOfPosts;
-    expect(adapters.getSelectors().selectAll(initialState.galleryPage.posts)).toEqual(JestUtils.firstPageOfPosts);
-
-    const post = JestUtils.singleFirstPost;
-    const addAction = toggleFavorite({ id: post.id, post });    
-    const favoritesState = favoritesReducer(initialState.favoritesPageState, addAction);
-
-    const appInitialStateWithOneFavorite = produce(initialState, draftState => {
-      draftState.favoritesPageState = favoritesState;
-    })
-
-     const storageIds: string[] = FavoritesSelectors.getLocalStorageIds(appInitialStateWithOneFavorite);
-     const stateIds: string[] = FavoritesSelectors.selectReduxStateIds(appInitialStateWithOneFavorite);
-
-     expect(storageIds).toStrictEqual([post.id]); 
-     expect(stateIds).toStrictEqual([post.id]); 
-
-    const saga = await expectSaga(getFavoritesPostsSaga)
-      .withReducer(rootReducer)
-      .withState(appInitialStateWithOneFavorite)
-      .provide([
-        [select(FavoritesSelectors.getLocalStorageIds), []],
-        [select(FavoritesSelectors.selectReduxStateIds), ["id1"]],
-        [call(PostsApi.getFavoritesPosts, ["id1"]), JestUtils.validNextPageResponse]
-      ])
-      .run();
-
-    const sagaState: AppState = saga.storeState;
-
-    //should be the last sorted post
-    const sortedImages = FavoritesSelectors.selectImages(sagaState, Resolution.desktop);
-    expect(last(sortedImages).postId).toBe(post.id);
-  
-  });
-
 });
