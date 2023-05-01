@@ -7,12 +7,24 @@ describe('posts api', () => {
     })
 
     describe('searchPostsByChannelName', () => {
+
       it('httpClient is called as expected', async () => {
         const searchString = 'test';
         PostsApi.searchPostsByChannelName(searchString);
-        //TODOPS leak
+  
         expect(axios.get).toHaveBeenCalledWith(`https://www.reddit.com/r/${searchString}/top.json`);
       });
+
+           
+      it('httpClient is called as expected with pagination', async () => {
+        const searchString = 'test';
+        const afterId = 'test';
+        
+        PostsApi.searchPostsByChannelName(searchString, afterId);
+  
+        expect(axios.get).toHaveBeenCalledWith(`https://www.reddit.com/r/${searchString}/top.json?after=${afterId}`);
+      });
+
     });
   
     describe('getFavoritesPosts', () => {  
@@ -20,6 +32,13 @@ describe('posts api', () => {
         PostsApi.getFavoritesPosts([]);
         expect(axios.get).toHaveBeenCalledWith(`https://api.reddit.com/by_id/`);
       });
+
+      it('httpClient is called as expected with pagination', async () => {
+        const afterId = 'test';        
+        PostsApi.getFavoritesPosts([], afterId);  
+        expect(axios.get).toHaveBeenCalledWith(`https://api.reddit.com/by_id/?after=${afterId}`);
+      });
     });
+
   });
   

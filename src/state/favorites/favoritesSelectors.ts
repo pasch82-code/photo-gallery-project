@@ -8,14 +8,14 @@ import { AppState, RedditReducedPost } from "../state";
 
 export namespace FavoritesSelectors {
 
-    const { selectAll: _selectAll, selectIds: _selectIds } = adapters?.getSelectors<AppState>(state => state.favoritesPage.favorites);
+    const { selectAll: _selectAll, selectIds: _selectIds } = adapters?.getSelectors<AppState>(state => state.favoritesPageState.favorites);
 
     export const selectReduxStateIds = createSelector([_selectIds], (ids: EntityId[]) => ids?.map(i => i?.toString()));
     export const selectAfterId = createSelector([_selectAll], (posts: RedditReducedPost[]) => last(posts)?.id);
 
-    export const getLocalStorageIds = (state: AppState) => state.favoritesPage.ids;
-    export const isFetching = (state: AppState) => state.favoritesPage.isFetching;
-    export const hasMoreRecords = (state: AppState) => state.favoritesPage.hasMoreRecords;
+    export const getLocalStorageIds = (state: AppState) => state.favoritesPageState.favoritesIds;
+    export const isFetching = (state: AppState) => state.favoritesPageState.isFetching;
+    export const hasMoreRecords = (state: AppState) => state.favoritesPageState.hasMoreRecords;
 
     const sortFavoritePostImages = createSelector([_selectAll, getLocalStorageIds],
         (posts: RedditReducedPost[], orderedIds: string[]) =>

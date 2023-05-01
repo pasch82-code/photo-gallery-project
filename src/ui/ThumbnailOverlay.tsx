@@ -8,7 +8,7 @@ import { VscLinkExternal } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { FavoritesSelectors } from "../state/favorites/favoritesSelectors";
 import { AppState, useAppDispatch } from "../state/state";
-import { toggleFavorite } from "../state/favorites/favoritesSlice";
+import { toggleFavoriteThunk } from "../state/favorites/favoritesSlice";
 
 const StyledThumbnailOverlay = styled.div`
   position: absolute;
@@ -73,7 +73,7 @@ const ThumbnailOverlay: React.FC<PropsWithChildren<ThumbnailOverlayProps>> = (pr
   const dispatch = useAppDispatch();
 
   const handleFavClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(toggleFavorite(postId));
+    dispatch(toggleFavoriteThunk(postId));
     e.stopPropagation();
     e.preventDefault();
   }, [postId]);

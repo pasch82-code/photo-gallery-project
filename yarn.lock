@@ -2091,6 +2091,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@juggle/resize-observer@npm:^3.3.1":
+  version: 3.4.0
+  resolution: "@juggle/resize-observer@npm:3.4.0"
+  checksum: 2505028c05cc2e17639fcad06218b1c4b60f932a4ebb4b41ab546ef8c157031ae377e3f560903801f6d01706dbefd4943b6c4704bf19ed86dfa1c62f1473a570
+  languageName: node
+  linkType: hard
+
 "@leichtgewicht/ip-codec@npm:^2.0.1":
   version: 2.0.3
   resolution: "@leichtgewicht/ip-codec@npm:2.0.3"
@@ -2830,6 +2837,16 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: db3d92b423150222a666329f7aa3023e3e942044700557b8a7d161530847e621aec9f56c9e7f71761b06dd164c8a7b17ad52355863efe80963dffa5537e8e5fd
+  languageName: node
+  linkType: hard
+
+"@types/redux-testkit@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@types/redux-testkit@npm:1.0.5"
+  dependencies:
+    redux: "*"
+    redux-thunk: "*"
+  checksum: e7d6cd46078372f42d59484731eb8d49b050adc0d6662809f0a84b209f7f29202d649503163335b2ced41b3f67c164f362fa8febf42f0b29d6fb739340951114
   languageName: node
   linkType: hard
 
@@ -8424,6 +8441,7 @@ __metadata:
     "@types/react-custom-scroll": ^4.3.2
     "@types/react-dom": ^18.2.1
     "@types/react-icons": ^3.0.0
+    "@types/redux-testkit": ^1.0.5
     "@types/styled-components": ^5.1.26
     "@types/testing-library__jest-dom": ^5.14.5
     axios: ^1.4.0
@@ -8461,6 +8479,7 @@ __metadata:
     ts-loader: ^9.4.2
     typescript: ^5.0.4
     use-breakpoint: ^3.0.7
+    use-resize-observer: ^9.1.0
     webpack: ^5.81.0
     webpack-bundle-analyzer: ^4.8.0
     webpack-cli: ^5.0.2
@@ -9406,7 +9425,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux-thunk@npm:^2.4.2":
+"redux-thunk@npm:*, redux-thunk@npm:^2.4.2":
   version: 2.4.2
   resolution: "redux-thunk@npm:2.4.2"
   peerDependencies:
@@ -9415,7 +9434,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux@npm:^4.0.4, redux@npm:^4.2.1":
+"redux@npm:*, redux@npm:^4.0.4, redux@npm:^4.2.1":
   version: 4.2.1
   resolution: "redux@npm:4.2.1"
   dependencies:
@@ -10816,6 +10835,18 @@ __metadata:
     react: ">=16.8"
     react-dom: ">=16.8"
   checksum: 1d9c52e9158db7cf7ecbc2544cf7b562796126c2b778f2cb23415c986984445c3c567b7a9691c992c5a26c057542a84fbfc9227ac29670ebde53bedfe685ec6e
+  languageName: node
+  linkType: hard
+
+"use-resize-observer@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "use-resize-observer@npm:9.1.0"
+  dependencies:
+    "@juggle/resize-observer": ^3.3.1
+  peerDependencies:
+    react: 16.8.0 - 18
+    react-dom: 16.8.0 - 18
+  checksum: 92be0ac34a3b3cf884cd55847c90792b5b44833dc258e96d650152815ad246afe45825aa223332203004d836535a927ab74f18dc0313229e2c7c69510eddf382
   languageName: node
   linkType: hard
 

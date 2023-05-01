@@ -7,6 +7,6 @@ import { uiInitialState } from "./ui/uiSlice"
 export const initialState: AppState = {
     filters: filtersInitialState,
     ui: uiInitialState,
-    favoritesPage: favoritesInitialState,
+    favoritesPageState: favoritesInitialState,
     galleryPage: postsInitialState
 }

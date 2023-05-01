@@ -43,9 +43,6 @@ export const postsSlice = createSlice({
         changeSearchText: (state: Draft<PostsState>, action: PayloadAction<string>) => {
             state.editingSearchText = action.payload;
         }
-    },
-    extraReducers: (builder) => {
-
     }
 });
 

@@ -11,12 +11,12 @@ export namespace Mappers {
     /**
      * The function maps an array of RedditPost objects to an array of RedditReducedPost objects by
      * filtering and flattening the posts and extracting relevant information.
-     * @param {RedditPost[]} posts - an array of RedditPost objects, which contain information about a post
-     * on the Reddit platform.
-     * @returns an array of objects of type `RedditReducedPost`. The array contains the mapped properties
-     * of the input `RedditPost` array, filtered to only include posts with a `preview` property. The
-     * mapped properties include the post's `id`, `title`, `source`, `permalink`, `resolutions`, and
-     * `thumbnailUrl`.
+     * @param {RedditPost[]} posts - an array of RedditPost objects, which contain information about a
+     * post on the Reddit platform.
+     * @returns The function `mapToReducedRedditPost` returns an array of `RedditReducedPost` objects,
+     * which are created by mapping and reducing the input array of `RedditPost` objects. The resulting
+     * `RedditReducedPost` objects contain a subset of the properties of the original `RedditPost`
+     * objects, including the post ID, title, source image, permalink, image resolutions, and thumbnail
      */
     export function mapToReducedRedditPost(posts: RedditPost[]) {
 
@@ -40,23 +40,23 @@ export namespace Mappers {
 
     /**
      * This function maps an array of RedditReducedPost objects to an array of ThumbnailProps objects,
-     * filtering by source image dimensions if specified.
+     * with optional filtering by image resolution.
      * @param {RedditReducedPost[]} posts - an array of RedditReducedPost objects
-     * @param {Resolution} resolution - a string representing the desired resolution of the thumbnail
-     * image (e.g. "low", "medium", "high")
-     * @param {number} minWidth - The minimum width that the source image of the thumbnail should have
-     * in order to be included in the returned array of thumbnail image props.
-     * @param {number} minHeight - The minimum height that the source image must have to be included in
-     * the resulting array of thumbnail image props.
-     * @param {number} maxWidth - The maximum width that the images should have. Images with a
+     * @param {Resolution} resolution - The desired resolution for the thumbnail image. It is used to
+     * find the closest matching resolution from the available resolutions of the post's image.
+     * @param {number} [minWidth] - The minimum width of the source image that should be included in
+     * the result. Images with a source width less than this value will be filtered out.
+     * @param {number} [minHeight] - The minimum height in pixels that the source image must have to be
+     * included in the resulting array of thumbnail image props.
+     * @param {number} [maxWidth] - The maximum width that the images should have. Any images with a
      * sourceWidth greater than this value will be filtered out.
-     * @param {number} maxHeight - The maximum height that an image can have to be included in the
-     * returned array of ThumbnailProps.
+     * @param {number} [maxHeight] - The maximum height that a thumbnail image can have. Any thumbnail
+     * image with a height greater than this value will be filtered out from the final result.
      * @returns The function `mapToThumbnailImageProps` returns an array of `ThumbnailProps` objects,
      * which are created by mapping over an array of `RedditReducedPost` objects and extracting
      * relevant properties such as thumbnail URL, post ID, title, source URL, source height and width,
-     * and permalink. The resulting array is then filtered based on optional minimum and maximum width
-     * and height parameters before being returned.
+     * and permalink. The function also filters the resulting array based on optional minimum and
+     * maximum width and height parameters.
      */
     export function mapToThumbnailImageProps(posts: RedditReducedPost[], resolution: Resolution, minWidth?: number, minHeight?: number, maxWidth?: number, maxHeight?: number) {
 

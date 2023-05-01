@@ -11,6 +11,10 @@ export namespace RoutePaths {
 
 /**
  * This is a function that defines the routes for a React app and initializes data from local storage.
+ * @returns The `AppRoutes` component is being returned, which contains two `Route` components. The
+ * first `Route` component has a path of "/" and renders the `GalleryPage` component. The second
+ * `Route` component has a path of `RoutePaths.favorites` (which is likely a constant defined elsewhere
+ * in the code) and renders the `FavoritesPage` component.
  */
 function AppRoutes() {
     const dispatch = useAppDispatch();

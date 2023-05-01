@@ -26,7 +26,8 @@
     "react-router-dom": "^6.11.0",
     "redux-saga": "^1.2.3",
     "styled-components": "^5.3.10",
-    "use-breakpoint": "^3.0.7"
+    "use-breakpoint": "^3.0.7",
+    "use-resize-observer": "^9.1.0"
   },
   "scripts": {
     "start": "webpack serve",
@@ -55,6 +56,7 @@
     "@types/react-custom-scroll": "^4.3.2",
     "@types/react-dom": "^18.2.1",
     "@types/react-icons": "^3.0.0",
+    "@types/redux-testkit": "^1.0.5",
     "@types/styled-components": "^5.1.26",
     "@types/testing-library__jest-dom": "^5.14.5",
     "babel-jest": "^29.5.0",

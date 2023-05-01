@@ -7,7 +7,7 @@ import Label from "./library/Label";
 import { useTranslation } from "react-i18next";
 import { FiltersSelectors } from "../state/filters/filtersSelectors";
 import { AppState, useAppDispatch } from "../state/state";
-import { changeHeight, changeWidth, clearFilters, filtersInitialState } from "../state/filters/filtersSlice";
+import { changeHeights, changeWidths, clearFilters, filtersInitialState } from "../state/filters/filtersSlice";
 
 const StyledFilters = styled.div`
     display: block;
@@ -29,10 +29,10 @@ const StyledFilters = styled.div`
 `;
 
 function Filters() {
-    const minWidth = useSelector((state: AppState) => FiltersSelectors.getMinWidth(state)) ?? filtersInitialState.minWidth;
-    const minHeight = useSelector((state: AppState) => FiltersSelectors.getMinHeight(state)) ?? filtersInitialState.minHeight;
-    const maxWidth = useSelector((state: AppState) => FiltersSelectors.getMaxWidth(state)) ?? filtersInitialState.maxWidth;
-    const maxHeight = useSelector((state: AppState) => FiltersSelectors.getMaxHeight(state)) ?? filtersInitialState.maxHeight;
+    const minWidth = useSelector((state: AppState) => FiltersSelectors.getMinWidth(state));
+    const minHeight = useSelector((state: AppState) => FiltersSelectors.getMinHeight(state));
+    const maxWidth = useSelector((state: AppState) => FiltersSelectors.getMaxWidth(state));
+    const maxHeight = useSelector((state: AppState) => FiltersSelectors.getMaxHeight(state));
     
     const { t } = useTranslation("translations");
   
@@ -41,11 +41,11 @@ function Filters() {
     const dispatch = useAppDispatch();
 
     const handleChangeWidth = useCallback((values: number[]) => {
-        dispatch(changeWidth(values));
+        dispatch(changeWidths(values));
     }, [])
 
     const handleChangHeight = useCallback((values: number[]) => {
-        dispatch(changeHeight(values));
+        dispatch(changeHeights(values));
     }, [])
 
     const handleClearButtonClicked = useCallback(() => {

@@ -1,10 +1,8 @@
-import React, { Children } from 'react';
-import { describe, test } from '@jest/globals';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import { act, render, screen, prettyDOM, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom'
-import { debug } from 'jest-preview';
-import { Wrapper } from '../../jest-utils';
+import React from 'react';
+import { test } from '@jest/globals';
+import { MemoryRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
+import { renderWithProviders } from '../../jest-utils';
 import AppRoutes, { RoutePaths } from '../../routes';
 import { t } from 'i18next';
 import { Resolution } from '../../theme';
@@ -24,25 +22,25 @@ jest.mock('use-breakpoint', () => {
   }))
 })
 
-function renderFavoritesPage() {
+function renderRouterFavoritesPage() {
   const path = `/${RoutePaths.favorites}`;
 
-  render(<MemoryRouter initialEntries={[path]}>
+  renderWithProviders(<MemoryRouter initialEntries={[path]}>
     <AppRoutes />
-  </MemoryRouter>, { wrapper: Wrapper });
+  </MemoryRouter>);
 }
 
-test("should display favorites page", async () => {
-  renderFavoritesPage();
+test("router should display favorites page", async () => {
+  renderRouterFavoritesPage();
 
   await expectIsFavoritesPage();
 
   //debug();
 })
 
-test("should redirect to home", async () => {
+test("sidebar link should redirect to home", async () => {
 
-  renderFavoritesPage();
+  renderRouterFavoritesPage();
 
   const hamburgerButton = await screen.findByRole('button', { name: "hamburger" });
   await userEvent.click(hamburgerButton);
@@ -52,18 +50,15 @@ test("should redirect to home", async () => {
   })
 
   await userEvent.click(homeLink);
-
   // const textbox = await screen.findByRole('textbox');
   // expect(textbox).toBeInTheDocument();
   // expect(textbox).toHaveValue("pics")
-
   //debug();
-
 })
 
 test("should clear favorites", async () => {
 
-  renderFavoritesPage();
+  renderRouterFavoritesPage();
 
   const clearButton = await getClearButton()
   expect(clearButton).toBeInTheDocument();

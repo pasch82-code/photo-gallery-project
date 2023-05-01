@@ -14,7 +14,7 @@ const StyledInfiniteScrollContainer = styled.div`
 `;
 
 interface InfiniteScrollContainerProps {
-  isLoading: boolean;
+  isFetching: boolean;
   hasRecords: boolean;
   onScrollReached: () => void;
 }
@@ -27,12 +27,15 @@ interface InfiniteScrollContainerProps {
  * call to prevent multiple calls. The component also has an `useEffect` hook that checks if
  * the content height is less than the container height and if so, it automatically calls the`invokeLoadMore` function.
  *  */
-const InfiniteScrollContainer: React.FC<PropsWithChildren<InfiniteScrollContainerProps>> = ({ isLoading, hasRecords, children, onScrollReached }) => {
+const InfiniteScrollContainer: React.FC<PropsWithChildren<InfiniteScrollContainerProps>> = ({ isFetching, hasRecords, children, onScrollReached }) => {
 
   const { breakpoint } = useBreakpoint(BREAKPOINTS);
   const rowHeight = ROW_HEIGHTS[breakpoint];
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollbarRef = useRef<any>(null);
+
+  //TODOPS bug: detect resize 
+  //const { ref, height: parentHeight } = useResizeObserver<HTMLDivElement>();
 
   const invokeLoadMore = useCallback(debounce(() => {
     onScrollReached();
@@ -46,20 +49,20 @@ const InfiniteScrollContainer: React.FC<PropsWithChildren<InfiniteScrollContaine
     const scrollPosition = Math.round(scrollNode.scrollHeight - offset);
 
     if (scrollPosition <= scrollContainerBottomPosition) {
-      if (isLoading == false && hasRecords)
+      if (isFetching == false && hasRecords)
         invokeLoadMore();
     }
-  }, [isLoading, hasRecords]);
+  }, [isFetching, hasRecords]);
 
   useEffect(() => {
     const parentHeight = containerRef.current.offsetHeight;
     const contentHeight = (scrollbarRef as any).current.contentHeight;
 
-    if (isLoading == false && hasRecords && contentHeight < (parentHeight + rowHeight)) {
+    if (isFetching == false && hasRecords && contentHeight < (parentHeight + rowHeight)) {
       //console.log("automatically trying to load more! - even if not scrolling.");
       invokeLoadMore();
     }
-  }, [isLoading, hasRecords]);
+  }, [isFetching, hasRecords]);
 
   return (<StyledInfiniteScrollContainer ref={containerRef}>
     <CustomScroll flex="1" onScroll={handleOnScroll} ref={scrollbarRef} >

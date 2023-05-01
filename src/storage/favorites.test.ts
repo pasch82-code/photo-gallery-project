@@ -1,4 +1,4 @@
-import FavoriteStorage from "./favorites"
+import FavoritesStorage from "./favorites"
 
 describe('favorite local storage', () => {
 
@@ -6,16 +6,13 @@ describe('favorite local storage', () => {
 
         const ids: string[] = ["id1", "id2", "id3", "id4"]
 
-        FavoriteStorage.setFavorites(ids);
-
-        const favoriteIds = FavoriteStorage.getFavorites();
+        FavoritesStorage.setFavorites(ids);
+        const favoriteIds = FavoritesStorage.getFavorites();
 
         expect(favoriteIds.sort()).toEqual(ids.sort())
+        FavoritesStorage.clearFavorites();
 
-        FavoriteStorage.clearFavorites();
-
-        const clearedFav = FavoriteStorage.getFavorites();
-
+        const clearedFav = FavoritesStorage.getFavorites();
         expect(clearedFav).toBe(null);
     });
 

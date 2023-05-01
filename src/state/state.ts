@@ -33,7 +33,7 @@ export interface FavoritesState {
     favorites: EntityState<RedditReducedPost>,
     isFetching?: boolean;
     hasMoreRecords?: boolean;
-    ids: string[];
+    favoritesIds: string[];
     hasError?: boolean
 }
 
@@ -44,7 +44,7 @@ export interface UiState {
 export interface AppState {
     filters: FiltersState,
     ui: UiState,
-    favoritesPage: FavoritesState,
+    favoritesPageState: FavoritesState,
     galleryPage: PostsState
 }
 

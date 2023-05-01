@@ -3,7 +3,6 @@ import { test } from '@jest/globals';
 import { act, render, screen,  fireEvent } from '@testing-library/react';
 import { debug } from 'jest-preview';
 import InputText, { DEBOUNCE_MILLISECONDS } from "./InputText";
-import '@testing-library/jest-dom'
 
 const handleChange = jest.fn();
 

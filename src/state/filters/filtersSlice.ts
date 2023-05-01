@@ -13,11 +13,11 @@ export const filtersSlice = createSlice({
     name: 'filtersSlice',
     initialState: filtersInitialState,
     reducers: {
-        changeWidth: (state: Draft<FiltersState>, action: PayloadAction<number[]>) => {
+        changeWidths: (state: Draft<FiltersState>, action: PayloadAction<number[]>) => {
             state.minWidth = action.payload[0];
             state.maxWidth = action.payload[1];
         },
-        changeHeight: (state: Draft<FiltersState>, action: PayloadAction<number[]>) => {
+        changeHeights: (state: Draft<FiltersState>, action: PayloadAction<number[]>) => {
             state.minHeight = action.payload[0];
             state.maxHeight = action.payload[1];
         },
@@ -31,7 +31,7 @@ export const filtersSlice = createSlice({
 });
 
 export const {
-   toggleFiltersOpened, changeWidth, changeHeight, clearFilters,
+   toggleFiltersOpened, changeWidths, changeHeights, clearFilters,
 } = filtersSlice.actions
 
 export const filtersReducer = filtersSlice.reducer;

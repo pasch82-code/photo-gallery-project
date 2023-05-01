@@ -35,7 +35,7 @@ is also rendered. */
 const ImagesContainer: React.FC<PropsWithChildren<ImagesContainerProps>> = ({ isLoading, hasRecords, handleLoadMore, images }) => {
    return (<><InfiniteScrollContainer
         onScrollReached={handleLoadMore}
-        isLoading={isLoading}
+        isFetching={isLoading}
         hasRecords={hasRecords} >
         <StyledImageContainer hasRecords={hasRecords} >
           {images?.map(image => <Thumbnail key={image.postId} {...image} />)}

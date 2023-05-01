@@ -12,7 +12,7 @@ const sagaMiddleware = createSagaMiddleware();
 export const rootReducer = combineReducers<AppState>({
   filters: filtersReducer,
   ui: uiReducer,
-  favoritesPage: favoritesReducer,
+  favoritesPageState: favoritesReducer,
   galleryPage: postsReducer
 });
 

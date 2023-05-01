@@ -2,17 +2,16 @@ import { Draft, PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { FavoritesState, RedditReducedPost } from "../state";
 import FavoriteStorage from "../../storage/favorites";
 import { adapters } from "../adapters";
-
 import { AppDispatch, AppState } from "../state";
 import { PostSelectors } from "../posts/postsSelectors";
 
-export const toggleFavorite = (id: string) => (dispatch: AppDispatch, getState: () => AppState) => { //test thunk
+export const toggleFavoriteThunk = (id: string) => (dispatch: AppDispatch, getState: () => AppState) => { //test thunk
     const post = PostSelectors.selectById(getState(), id);
     dispatch(favoritesSlice.actions.toggleFavorite({ id, post }));
 }
 
 export const favoritesInitialState: FavoritesState = {
-    ids: [],
+    favoritesIds: [],
     favorites: adapters.getInitialState()
 }
 
@@ -50,32 +49,38 @@ export const favoritesSlice = createSlice({
         },    
         toggleFavorite: (state: Draft<FavoritesState>, action: PayloadAction<{ id: string, post: RedditReducedPost }>) => {  //it's a saga?  
             const { id, post } = action.payload;
-            if (!state.ids.includes(id)) {
-                state.ids.push(id);
+            if (!state.favoritesIds.includes(id)) {
+                state.favoritesIds.push(id);
                 adapters.addOne(state.favorites, post);
             }
             else {
-                state.ids = state.ids.filter(fId => fId != id);
+                state.favoritesIds = state.favoritesIds.filter(fId => fId != id);
                 adapters.removeOne(state.favorites, id);
             }
-            FavoriteStorage.setFavorites(state.ids);
+            FavoriteStorage.setFavorites(state.favoritesIds);
         },
         initFromLocalStorage: (state: Draft<FavoritesState>) => {
             const favoriteIds = FavoriteStorage.getFavorites();
-            state.ids = favoriteIds ?? [];
+            state.favoritesIds = favoriteIds ?? [];
         },
         clearFavorites: (state: Draft<FavoritesState>) => {
-            state.ids = [];
+            state.favoritesIds = [];
             FavoriteStorage.clearFavorites();
             adapters.removeAll(state.favorites);
         }
-    }
+    },
+    // extraReducers: (builder) => {
+    //     builder
+    //         .addCase(changeWidths, (state) => {
+    //             state.hasMoreRecords = true;
+    //         })
+    // }
 });
 
 export const {
     getFavoritesPostsStart, getFavoritesPostsSuccess, getFavoritesPostsFailure,
     loadMoreFavoritesStart, loadMoreFavoritesSuccess, loadMoreFavoritesFailure,
-    clearFavorites, initFromLocalStorage
+    clearFavorites, initFromLocalStorage, toggleFavorite
 } = favoritesSlice.actions
 
 export const favoritesReducer = favoritesSlice.reducer;

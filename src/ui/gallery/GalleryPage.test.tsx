@@ -1,15 +1,15 @@
-import React, { Children } from 'react';
-import { describe, test } from '@jest/globals';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import { act, render, screen, prettyDOM, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom'
-import { debug } from 'jest-preview';
-import AppRoutes, { RoutePaths } from '../../routes';
+import React from 'react';
+import { test } from '@jest/globals';
+import { MemoryRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
+import AppRoutes from '../../routes';
 import { t } from 'i18next';
-import { Wrapper } from '../../jest-utils';
 import { Resolution } from '../../theme';
 import userEvent from '@testing-library/user-event';
 import { expectIsFavoritesPage } from '../favorites/FavoritesPage.test';
+
+import { renderWithProviders } from '../../jest-utils';
+import { debug } from 'jest-preview';
 
 beforeEach(() => {
   window.history.pushState({}, '', '/');
@@ -24,15 +24,15 @@ jest.mock('use-breakpoint', () => {
   }))
 })
 
-test("should display gallery page", async () => {
-  renderGalleryPage();
+test("router should display gallery page", async () => {
+  renderRouterGalleryPage();
   await expectIsGalleryPage();
   //expect(input).toHaveValue("pics")
   //debug();
 })
 
-test("should redirect to favorites", async () => {
-  renderGalleryPage();
+test("sidebar link should redirect to favorites", async () => {
+  renderRouterGalleryPage();
 
   const hamburgerButton = await getHamburgerButton();
   await userEvent.click(hamburgerButton);
@@ -71,10 +71,10 @@ async function getHamburgerButton() {
   return await screen.findByRole('button', { name: "hamburger" });
 }
 
-function renderGalleryPage() {
+function renderRouterGalleryPage() {
   const path = `/`;
 
-  render(<MemoryRouter initialEntries={[path]}>
+  renderWithProviders(<MemoryRouter initialEntries={[path]}>
     <AppRoutes />
-  </MemoryRouter>, { wrapper: Wrapper });
+  </MemoryRouter>);
 }

@@ -7,15 +7,21 @@ import { rootReducer } from "../state/store";
 import { PostSelectors } from "../state/posts/postsSelectors";
 import { AppState } from "../state/state";
 import { adapters } from "../state/adapters";
+import { favoritesReducer, toggleFavorite } from "../state/favorites/favoritesSlice";
+import { produce } from "immer";
+import { getFavoritesPostsSaga } from "./favorites/getFavoritesPostsSaga";
+import { FavoritesSelectors } from "../state/favorites/favoritesSelectors";
+import { Resolution } from "../theme";
+import { last } from "lodash";
 
-describe('integrations tests', () => {
+describe('redux saga integrations tests', () => {
 
   it('loadMorePostsSaga saga does not replace existing posts', async () => {
 
     const searchText = "pics";
     const afterId = "afterId";
 
-    const initialState = JestUtils.stateWithPreloadedFirstPageOfPosts;
+    const initialState = JestUtils.appStateWithPreloadedFirstPageOfPosts;
     expect(adapters.getSelectors().selectAll(initialState.galleryPage.posts)).toEqual(JestUtils.firstPageOfPosts);
 
     const saga = await expectSaga(loadMorePostsSaga)
@@ -37,38 +43,44 @@ describe('integrations tests', () => {
 
   });
 
-  // it('null response failure triggers failure action', () => {
-  //   const searchText = 'test';
-  //   const response: AxiosResponse<RedditPostRoot> = {
-  //     data: null,
-  //     status: 0,
-  //     statusText: "",
-  //     headers: undefined,
-  //     config: undefined
-  //   };
+  it('getFavoritesPostsStart saga does not replace existing favorite posts and it is sorted correctly', async () => {
 
-  //   const generator = searchPostsByChannelNameSaga(searchPostsByChannelNameStart({ searchText }));
+    const searchText = "pics";
+    const afterId = "afterId";
 
-  //   expect(generator.next().value)
-  //     .toEqual(call(PostsApi.searchPostsByChannelName, searchText));
+    const initialState = JestUtils.appStateWithPreloadedFirstPageOfPosts;
+    expect(adapters.getSelectors().selectAll(initialState.galleryPage.posts)).toEqual(JestUtils.firstPageOfPosts);
 
-  //   expect(generator.next(response).value)
-  //     .toEqual(put(searchPostsByChannelNameFailure()));
+    const post = JestUtils.singleFirstPost;
+    const addAction = toggleFavorite({ id: post.id, post });    
+    const favoritesState = favoritesReducer(initialState.favoritesPageState, addAction);
 
-  //   expect(generator.next())
-  //     .toEqual({ done: true, value: undefined });
-  // });
+    const appInitialStateWithOneFavorite = produce(initialState, draftState => {
+      draftState.favoritesPageState = favoritesState;
+    })
 
-  // it('empty search text trigger success with empty array', () => {
-  //   const searchText = '';
+     const storageIds: string[] = FavoritesSelectors.getLocalStorageIds(appInitialStateWithOneFavorite);
+     const stateIds: string[] = FavoritesSelectors.selectReduxStateIds(appInitialStateWithOneFavorite);
 
-  //   const generator = searchPostsByChannelNameSaga(searchPostsByChannelNameStart({ searchText }));
+     expect(storageIds).toStrictEqual([post.id]); 
+     expect(stateIds).toStrictEqual([post.id]); 
 
-  //   expect(generator.next().value)
-  //     .toEqual(put(searchPostsByChannelNameSuccess({ posts: [], searchText })));
+    const saga = await expectSaga(getFavoritesPostsSaga)
+      .withReducer(rootReducer)
+      .withState(appInitialStateWithOneFavorite)
+      .provide([
+        [select(FavoritesSelectors.getLocalStorageIds), []],
+        [select(FavoritesSelectors.selectReduxStateIds), ["id1"]],
+        [call(PostsApi.getFavoritesPosts, ["id1"]), JestUtils.validNextPageResponse]
+      ])
+      .run();
 
-  //   expect(generator.next())
-  //     .toEqual({ done: true, value: undefined });
-  // });
+    const sagaState: AppState = saga.storeState;
+
+    //should be the last sorted post
+    const sortedImages = FavoritesSelectors.selectImages(sagaState, Resolution.desktop);
+    expect(last(sortedImages).postId).toBe(post.id);
+  
+  });
 
 });
