@@ -1,6 +1,6 @@
 import Filters from "./Filters"
 import React from 'react';
-import {  render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { debug } from 'jest-preview';
 import { renderWithProviders } from "../jest-utils";
 

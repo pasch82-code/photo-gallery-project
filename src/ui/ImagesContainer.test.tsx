@@ -6,7 +6,7 @@ import ImagesContainer from "./ImagesContainer";
 
 const handleLoadMore = jest.fn();
 
-test('load images container component with spinner', async () => {
+test('should show load images container component with spinner', async () => {
 
     render(<ImagesContainer
         handleLoadMore={handleLoadMore}
@@ -19,7 +19,7 @@ test('load images container component with spinner', async () => {
     debug();
 })
 
-test('load images container component without spinner', async () => {
+test('should show load images container component without spinner', async () => {
 
     render(<ImagesContainer
         handleLoadMore={handleLoadMore}

@@ -30,7 +30,7 @@ Launches the test runner.
 
 ### `yarn test:coverage`
 
-Launches the test runner with coverage and interactive watch mode
+Launches the test runner with coverage
 
 ### `yarn test:badges`
 

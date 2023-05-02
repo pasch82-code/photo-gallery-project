@@ -20,12 +20,12 @@ interface InfiniteScrollContainerProps {
   onScrollReached: () => void;
 }
 
-/** This is a functional component that renders an infinite scroll component on top of its child. It has
-logic to handle infinite scrolling by detecting when the user has scrolled to the bottom of the
+/** This is a functional component that renders an infinite scroll component on top of its child. 
+It has logic to handle infinite scrolling by detecting when the user has scrolled to the bottom of the
 container and invoking a `onScrollReached` function. 
 The component also has an `useEffect` hook that checks if the content height
-is less than the container height and there are more records to fetch. If so, it automatically calls
-the `onScrollReached` function. 
+is less than the container height and there are more records to fetch. 
+If so, it automatically calls the `onScrollReached` function. 
 The `onScrollReached` function is debounced to prevent multiple calls.*/
 const InfiniteScrollContainer: React.FC<PropsWithChildren<InfiniteScrollContainerProps>> = ({ isFetching, hasRecords, children, onScrollReached }) => {
 

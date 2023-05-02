@@ -10,15 +10,16 @@ const props: ThumbnailOverlayProps = {
   sourceHeight: 2000,
   sourceWidth: 1000,
   permalink: "https://jestjs.io",
-  url: "https://jestjs.io/img/opengraph.png",
-
+  url: "https://picsum.photos/200/300"
 }
 
-it("should display ThumbnailOverlay", async () => {
+it("should display a ThumbnailOverlay", async () => {
+
   renderWithProviders(<ThumbnailOverlay {...props} />, { preloadedState: JestUtils.appStateWithPreloadedFirstPageOfPosts, useRouter: true });
-  const button = await screen.findByRole('button', { name: "favorite" });
-  expect(button).toBeInTheDocument()
-  fireEvent.click(button);
+
+  const addFavoriteicon = await screen.findByRole('button', { name: "favorite" });
+  expect(addFavoriteicon).toBeInTheDocument()
+  fireEvent.click(addFavoriteicon);
 
   debug();
 });

@@ -24,16 +24,17 @@ describe('mapToReducedRedditPost', () => {
 });
 
 describe('mapToThumbnailImageProps', () => {
+
     it('should correctly maps data', () => {
 
         const posts = JestUtils.firstPageOfPosts;
-        
+
         const images = Mappers.mapToThumbnailImageProps(JestUtils.firstPageOfPosts, Resolution.desktop);
         expect(posts.length).toEqual(images.length);
         expect(posts.map(p => p.id).sort()).toEqual(images.map(i => i.postId).sort());
         expect(posts.map(p => p.permalink).sort()).toEqual(images.map(i => i.permalink).sort());
         expect(posts.map(p => p.thumbnailUrl).sort()).toEqual(images.map(i => i.thumbnailUrl).sort());
-        expect(posts.map(p => p.title).sort()).toEqual(images.map(i => i.title).sort());    
+        expect(posts.map(p => p.title).sort()).toEqual(images.map(i => i.title).sort());
     });
 
     it('it should not map data when provided wrong sizes', () => {

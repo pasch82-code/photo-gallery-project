@@ -36,7 +36,6 @@ test('InfiniteScrollContainer should work', async () => {
          onScrollReached={handleScrollReached} >
      </InfiniteScrollContainer>);
 
-    // ACT
     //expect(await screen.findByRole('button')).toBeDisabled()
     debug();
 })

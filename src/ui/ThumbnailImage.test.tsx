@@ -6,8 +6,8 @@ import { useInView } from 'react-intersection-observer';
 import { ROW_HEIGHTS } from '../theme';
 import { Resolution } from '../theme';
 
-const thumbSrc = "https://jestjs.io/img/opengraph.png";
-const imageSource = "https://jestjs.io/img/opengraph.png";
+const thumbSrc = "https://picsum.photos/200/300";
+const imageSource = "https://picsum.photos/200/300";
 const rowHeight = ROW_HEIGHTS[Resolution.desktop];
 
 const handleClick = jest.fn();
@@ -17,7 +17,7 @@ function renderImage(inView: boolean) {
     render(<ThumbnailImage rowHeight={rowHeight} thumbSrc={thumbSrc} url={imageSource} onClick={handleClick} />);
 }
 
-it("should display ThumbnailImage svg pixellated image instead of image if it is not in view", async () => {
+it("should display a pixelatedsvg image instead of image if it is not in view", async () => {
 
     renderImage(false);
 
@@ -30,7 +30,7 @@ it("should display ThumbnailImage svg pixellated image instead of image if it is
 });
 
 
-it("should display ThumbnailImage source image when is loaded and it is in view", async () => {
+it("should display the source image when is loaded and it is in view", async () => {
     
     renderImage(true);
 

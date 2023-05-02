@@ -1,52 +1,14 @@
 import React from 'react';
 import { test } from '@jest/globals';
-import { act, render, screen,  fireEvent } from '@testing-library/react';
-import { debug } from 'jest-preview';
-import InputText, { DEBOUNCE_MILLISECONDS } from "./InputText";
+import { render, screen } from '@testing-library/react';
+import Label from './Label';
 
-const handleChange = jest.fn();
+test('Label text component should work', async () => {
+    const value = "label value";
+    render(<Label>
+        {value}
+    </Label>);
 
-test('input text component should work', async () => {
-
-    const value = "initial value";
-    const inputName = "input-name";
-    const placeholder = "placeholder value";
-
-    render(<InputText
-        placeholder={placeholder}
-        name={inputName}
-        value={value}
-        onChange={handleChange} />);
-
-    const input: HTMLInputElement = await screen.findByRole('textbox', { name: inputName });
-
-    expect(input).toHaveValue(value);
-    expect(input).toHaveAttribute("placeholder", placeholder)
-
-    jest.useFakeTimers();
-
-    await act(async () => {
-        fireEvent.change(input, { target: { value: "a" } });
-        fireEvent.change(input, { target: { value: "ab" } });
-        fireEvent.change(input, { target: { value: "abc" } });
-        fireEvent.change(input, { target: { value: "abcd" } });
-        fireEvent.change(input, { target: { value: "abcde" } });
-        fireEvent.change(input, { target: { value: "abcdef" } });
-        fireEvent.change(input, { target: { value: "abcdefg" } });
-
-        jest.advanceTimersByTime(DEBOUNCE_MILLISECONDS);
-        expect(handleChange).toBeCalledTimes(1);
-        expect(input).toHaveValue("abcdefg");
-    })
-
-    await act(async () => {
-        fireEvent.change(input, { target: { value: "another value" } });
-        jest.advanceTimersByTime(DEBOUNCE_MILLISECONDS);
-        fireEvent.change(input, { target: { value: "final value" } });
-        jest.advanceTimersByTime(DEBOUNCE_MILLISECONDS);
-        expect(handleChange).toBeCalledTimes(3);
-        expect(input).toHaveValue("final value");
-    })
-
-    debug();
+    const label: HTMLLabelElement = await screen.findByText(value);
+    expect(label).toBeInTheDocument();
 })

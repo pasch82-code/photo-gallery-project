@@ -1,9 +1,7 @@
 import { JestUtils } from "../../jest-utils";
 import { adapters } from "../adapters";
-import { clearFavorites, favoritesInitialState, favoritesReducer, getFavoritesPostsFailure, getFavoritesPostsStart, getFavoritesPostsSuccess, loadMoreFavoritesFailure, loadMoreFavoritesStart, loadMoreFavoritesSuccess, toggleFavorite, toggleFavoriteThunk } from "../favorites/favoritesSlice";
-import { initialState } from "../initialState";
+import { clearFavorites, favoritesInitialState, favoritesReducer, getFavoritesPostsFailure, getFavoritesPostsStart, getFavoritesPostsSuccess, loadMoreFavoritesFailure, loadMoreFavoritesStart, loadMoreFavoritesSuccess, toggleFavorite } from "../favorites/favoritesSlice";
 import store from "../store";
-import { Thunk } from 'redux-testkit';
 
 describe('redux state init tests', () => {
     it('Should initially set initial State', () => {

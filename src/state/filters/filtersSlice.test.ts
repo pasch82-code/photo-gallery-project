@@ -26,13 +26,13 @@ describe('reducer actions filters', () => {
         const action = changeHeights([10, 20]);
         const newState = filtersReducer(filtersInitialState, action);
 
-        it('is has changed widths ', () => {
+        it('is has changed heights ', () => {
             expect(newState.minHeight).toEqual(10);
             expect(newState.maxHeight).toEqual(20);
         });
     });
 
-    describe('toggle filters value', () => {
+    describe('toggle opened filters value', () => {
         const openFiltersAction = toggleFiltersOpened(true);
         const openedFiltersState = filtersReducer(filtersInitialState, openFiltersAction);
 
@@ -42,6 +42,7 @@ describe('reducer actions filters', () => {
 
         const closeFiltersAction = toggleFiltersOpened(false);
         const closedFilterState = filtersReducer(openedFiltersState, closeFiltersAction);
+        
         it('is has changed opened again to false', () => {
             expect(closedFilterState.opened).toEqual(false);
         });

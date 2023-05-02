@@ -2840,16 +2840,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/redux-testkit@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@types/redux-testkit@npm:1.0.5"
-  dependencies:
-    redux: "*"
-    redux-thunk: "*"
-  checksum: e7d6cd46078372f42d59484731eb8d49b050adc0d6662809f0a84b209f7f29202d649503163335b2ced41b3f67c164f362fa8febf42f0b29d6fb739340951114
-  languageName: node
-  linkType: hard
-
 "@types/responselike@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/responselike@npm:1.0.0"
@@ -8441,7 +8431,6 @@ __metadata:
     "@types/react-custom-scroll": ^4.3.2
     "@types/react-dom": ^18.2.1
     "@types/react-icons": ^3.0.0
-    "@types/redux-testkit": ^1.0.5
     "@types/styled-components": ^5.1.26
     "@types/testing-library__jest-dom": ^5.14.5
     axios: ^1.4.0
@@ -9425,7 +9414,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux-thunk@npm:*, redux-thunk@npm:^2.4.2":
+"redux-thunk@npm:^2.4.2":
   version: 2.4.2
   resolution: "redux-thunk@npm:2.4.2"
   peerDependencies:
@@ -9434,7 +9423,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux@npm:*, redux@npm:^4.0.4, redux@npm:^4.2.1":
+"redux@npm:^4.0.4, redux@npm:^4.2.1":
   version: 4.2.1
   resolution: "redux@npm:4.2.1"
   dependencies:
